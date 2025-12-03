@@ -16,7 +16,7 @@ export const validateAddress = async (
 
   const addressToValidate = parseAddressInput(addressInput);
   const xmlResponse = await validate(addressToValidate);
-  const parsedXmlResponse = await xml2js.parseStringPromise(xmlResponse, {
+  const parsedXmlResponse = await xml2js.parseStringPromise(xmlResponse.data, {
     explicitArray: false,
   });
   const addressValidationResponse =

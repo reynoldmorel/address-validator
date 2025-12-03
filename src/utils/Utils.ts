@@ -1,9 +1,9 @@
 import postal from "node-postal";
-import resources from "../resources/resources";
+import resources from "../resources/Resources";
 import UspsAddressReq from "../types/UspsAddressReq";
 
-export const buildUSPSRequest = (address: UspsAddressReq) => `
-    <AddressValidateRequest USERID="${resources.USPS_USER_ID}">
+export const buildUSPSRequest = (address: UspsAddressReq) =>
+  `<AddressValidateRequest USERID="${resources.USPS_USER_ID}">
       <Revision>1</Revision>
       <Address ID="0">
         <Address1>${address.address1 || ""}</Address1>
@@ -13,8 +13,7 @@ export const buildUSPSRequest = (address: UspsAddressReq) => `
         <Zip5>${address.zip5 || ""}</Zip5>
         <Zip4>${address.zip4 || ""}</Zip4>
       </Address>
-    </AddressValidateRequest>
-  `;
+    </AddressValidateRequest>`.trim();
 
 export const parseAddressInput = (addressInput: string): UspsAddressReq => {
   const parsedAddressComponents = postal.parser.parse_address(addressInput);
