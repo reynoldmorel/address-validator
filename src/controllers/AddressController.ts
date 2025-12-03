@@ -15,19 +15,21 @@ export const validateAddress = async (
   }
 
   const addressToValidate = parseAddressInput(addressInput);
+
   const xmlResponse = await validate(addressToValidate);
   const parsedXmlResponse = await xml2js.parseStringPromise(xmlResponse.data, {
     explicitArray: false,
   });
-  const addressValidationResponse =
-    parsedXmlResponse.AddressValidateResponse.Address;
 
-  if (addressValidationResponse.Error) {
+  if (parsedXmlResponse.Error) {
     return {
       addressInput,
       status: Status.INVALID,
     };
   }
+
+  const addressValidationResponse =
+    parsedXmlResponse.AddressValidateResponse.Address;
 
   return {
     addressInput,
