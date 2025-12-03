@@ -1,6 +1,7 @@
 enum Status {
-    VALID = "valid",
-    INVALID = "invalid"
+  VALID = "valid",
+  CORRECTED = "corrected",
+  UNVERIFIABLE = "unverifiable",
 }
 
 export default Status;

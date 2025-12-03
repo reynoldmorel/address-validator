@@ -9,8 +9,7 @@ export const validateAddress = async (
 ): Promise<AddressResponse> => {
   if (!addressInput || !addressInput.trim()) {
     return {
-      addressInput,
-      status: Status.INVALID,
+      status: Status.UNVERIFIABLE,
     };
   }
 
@@ -23,8 +22,7 @@ export const validateAddress = async (
 
   if (parsedXmlResponse.Error) {
     return {
-      addressInput,
-      status: Status.INVALID,
+      status: Status.UNVERIFIABLE,
     };
   }
 
@@ -32,8 +30,9 @@ export const validateAddress = async (
     parsedXmlResponse.AddressValidateResponse.Address;
 
   return {
-    addressInput,
-    status: Status.VALID,
+    status: addressValidationResponse.ReturnText
+      ? Status.CORRECTED
+      : Status.VALID,
     normalizedAddress: {
       street: addressValidationResponse.Address2,
       number: addressValidationResponse.Address2
